@@ -5,5 +5,5 @@ def recursiveMethod(n):
         recursiveMethod(n-1)
         print(n)
 
-numDolls = int(input("nhap n: "))
-recursiveMethod(numDolls)
+n = int(input("nhap n: "))
+recursiveMethod(n)
