@@ -1,85 +1,79 @@
 class Node:
-    def __init__(self, heso, somu):
-        self.HeSo = heso
-        self.SoMu = somu
-        self.KeTiep = None
+    def __init__(self,HeSo,SoMu):
+        self.HeSo = HeSo
+        self.SoMu = SoMu
+        self.next = None
+        
+class PhuongThuc:
+    def __init__(self):
+        self.head = None
+    
+    def Them(self,new_HeSo,new_SoMu):
+        new_node = Node(new_HeSo,new_SoMu)
+        if self.head is None:
+            self.head = new_node
+            return
+        last = self.head
+        while last.next:
+            if last.next.SoMu < new_node.SoMu:
+                last.next = new_node
+                return
+            last = last.next
+        last.next = new_node
+        
+    def RutGon(self):
+        goc = self.head
+        pre_goc = goc
+        while goc:
+            search = goc.next
+            while search:
+                if search.SoMu == goc.SoMu:
+                    goc.HeSo += search.HeSo
+                    goc.next = search.next
+                search = search.next
+            if goc.HeSo == 0:
+                if goc.next is None:
+                    pre_goc.next = None
+                elif goc == self.head:
+                    self.head = goc.next
+                    pre_goc = self.head   
+                else:
+                    pre_goc.next = goc.next
+                goc = pre_goc
+            else:
+                goc = goc.next
 
-def dathuc_Them(dathuc, heso, somu):
-    new_node = Node(heso, somu)
+        
+    def Print(self):
+        temp = self.head
+        while temp:
+            
+            if temp.HeSo > 0:
+                dau = '+'
+            elif temp.HeSo < 0:
+                dau = '-'
+            else:
+                dau = '-'
+            if temp.HeSo == 1 or temp.HeSo == -1:
+                so = None
+            else:
+                so = abs(temp.HeSo)
+            
+            
+            dathuc = [dau if temp != self.head or temp.HeSo < 0 else '','' if so is None else so,'x','^' if temp.SoMu else '', temp.SoMu if temp.SoMu else '']
+            dathuc_string = ''.join([str(m) for m in dathuc])
+            print(dathuc_string, end=' ')
+            temp = temp.next
 
-    if dathuc is None or somu > dathuc.SoMu:
-        new_node.KeTiep = dathuc
-        dathuc = new_node
-    else:
-        current = dathuc
-
-        while current.KeTiep is not None and current.KeTiep.SoMu >= somu:
-            current = current.KeTiep
-
-        new_node.KeTiep = current.KeTiep
-        current.KeTiep = new_node
-
-    return dathuc
-
-def dathuc_RutGon(dathuc):
-    if dathuc is None or dathuc.KeTiep is None:
-        return dathuc
-
-    current = dathuc
-
-    while current is not None and current.KeTiep is not None:
-        if current.SoMu == current.KeTiep.SoMu:
-            current.HeSo += current.KeTiep.HeSo
-            current.KeTiep = current.KeTiep.KeTiep
-        elif current.HeSo == 0:
-            current.KeTiep = current.KeTiep.KeTiep
-        else:
-            current = current.KeTiep
-
-    return dathuc
-class Node:
-    def __init__(self, heso, somu):
-        self.HeSo = heso
-        self.SoMu = somu
-        self.KeTiep = None
-
-
-def dathuc_RutGon(dathuc):
-    if dathuc is None or dathuc.KeTiep is None:
-        return dathuc
-
-    current = dathuc
-
-    while current is not None and current.KeTiep is not None:
-        if current.SoMu == current.KeTiep.SoMu:
-            current.HeSo += current.KeTiep.HeSo
-            current.KeTiep = current.KeTiep.KeTiep
-        elif current.HeSo == 0:
-            current.KeTiep = current.KeTiep.KeTiep
-        else:
-            current = current.KeTiep
-
-    return dathuc
-
-
-def inDathuc(dathuc):
-    current = dathuc
-    while current is not None:
-        print(f"{current.HeSo}x^{current.SoMu}", end=" ")
-        current = current.KeTiep
-    print()
-
-
-# Tạo đa thức ban đầu
-dathuc = None
-dathuc = dathuc_Them(dathuc, 2, 3)
-dathuc = dathuc_Them(dathuc, -1, 3)
-dathuc = dathuc_Them(dathuc, 3, 1)
-dathuc = dathuc_Them(dathuc, 4, 0)
-
-inDathuc(dathuc)  # Kết quả: 2x^3 - 1x^3 + 3x^1 + 4x^0
-
-# Rút gọn đa thức
-dathuc = dathuc_RutGon(dathuc)
-
-inDathuc(dathuc)  # Kết quả: 1x^3 + 3x^1 + 4x^0
+        
+dathuc = PhuongThuc()
+dathuc.Them(-2,2)
+dathuc.Them(2,2)
+dathuc.Them(-2,2)
+dathuc.Them(3,1)
+dathuc.Them(-3,1)
+dathuc.Them(-3,0)
+dathuc.Print()
+print("\n")
+dathuc.RutGon()
+dathuc.Print()

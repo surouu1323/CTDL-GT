@@ -8,7 +8,7 @@ class PhuongThuc:
     def __init__(self):
         self.head = None
     
-    def Them(self,new_HeSo,new_SoMu):
+    def them(self,new_HeSo,new_SoMu):
         new_node = Node(new_HeSo,new_SoMu)
         if self.head is None:
             self.head = new_node
@@ -23,7 +23,7 @@ class PhuongThuc:
             last = last.next
         last.next = new_node
         
-    def Print(self):
+    def print(self):
         temp = self.head
         while temp:
             dathuc = [temp.HeSo if temp.HeSo > 1 else "","x^",temp.SoMu,'+' if temp.next else ""]
@@ -32,8 +32,8 @@ class PhuongThuc:
             temp = temp.next
             
 dathuc = PhuongThuc()
-dathuc.Them(1,2)
-dathuc.Them(4,0)
-dathuc.Them(3,1)
+dathuc.them(1,2)
+dathuc.them(4,0)
+dathuc.them(3,1)
 
-dathuc.Print()
+dathuc.print()
