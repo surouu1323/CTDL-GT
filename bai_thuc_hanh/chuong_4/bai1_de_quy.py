@@ -17,18 +17,18 @@ class PhuongThuc:
                 current = current.Next
             current.Next = node
 
-    def DaoNguoc(self):
-        stack = []
-        current = self.Head
-        while current is not None:
-            stack.append(current)
-            current = current.Next
-        self.Head = stack.pop()
-        current = self.Head
-        while stack:
-            current.Next = stack.pop()
-            current = current.Next
-        current.Next = None
+    def InNguoc(self):
+        if self.Head is None:
+            return
+        else:
+            self._InNguoc_recursion(self.Head)
+    
+    def _InNguoc_recursion(self,node):
+        if node.Next is not None:
+            self._InNguoc_recursion(node.Next)
+            print(node.Info, end=" ")
+        else:
+            print(node.Info, end=" ")
 
     def InDanhSach(self):
         current = self.Head
@@ -50,7 +50,7 @@ dslk.Them(5)
 print("Danh sách liên kết:")
 dslk.InDanhSach()
 
-dslk.DaoNguoc()
-# In ngược danh sách liên kết
-print("In ngược danh sách :")
-dslk.InDanhSach()
+# In ngược danh sách liên kết bằng phương pháp đệ qui
+print("In ngược danh sách (đệ qui):")
+dslk.InNguoc()
+

@@ -4,42 +4,51 @@ class Node:
         self.left = None
         self.right = None
 
-class BinaryTree:
+class PhuongThuc:
     def __init__(self):
         self.root = None
 
     def KiemTraBST(self, node):
-        return self._KiemTraBST(node, float('-inf'), float('inf'))
+        is_bst = self._KiemTraBST(node)
+        if is_bst:
+            print("Cây là một cây BST")
+        else:
+            print("Cây không phải là cây BST")
 
-    def _KiemTraBST(self, node, min_val, max_val):
-        if node is None:
+    def _KiemTraBST(self, node):
+        if node is None: # If the current node is null then return true
             return True
-
-        if node.info <= min_val or node.info >= max_val:
+        
+        elif node.left is None or node.right is None: # If the value of the left child or right child is null then return true
+            return True
+        
+        #If the value of the left child of the node is greater than or equal to the current node then return false
+        #If the value of the right child of the node is less than or equal to the current node then return false
+        elif node.left.info >= node.info or node.info >= node.right.info:
             return False
-
+                
         return (
-            self._KiemTraBST(node.left, min_val, node.info) and
-            self._KiemTraBST(node.right, node.info, max_val)
+            self._KiemTraBST(node.left) and
+            self._KiemTraBST(node.right)
         )
 
 # Tạo một cây nhị phân
-tree = BinaryTree()
+cay = PhuongThuc()
 
 # Xây dựng cây nhị phân
-tree.root = Node(4)
-tree.root.left = Node(2)
-tree.root.right = Node(6)
-tree.root.left.left = Node(1)
-tree.root.left.right = Node(3)
-tree.root.right.left = Node(5)
-tree.root.right.right = Node(7)
+cay.root = Node(4)
+cay.root.left = Node(2)
+cay.root.right = Node(6)
+cay.root.left.left = Node(1)
+cay.root.left.right = Node(3)
+cay.root.right.left = Node(5)
+cay.root.right.right = Node(7)
 
 # Gọi phương thức KiemTraBST() để kiểm tra xem cây có phải là BST hay không
-is_bst = tree.KiemTraBST(tree.root)
+cay.KiemTraBST(cay.root)
 
-# In kết quả
-if is_bst:
-    print("Cây là một cây BST")
-else:
-    print("Cây không phải là cây BST")
+cay.root = Node(1)
+cay.root.left = Node(2)
+cay.root.right = Node(3)
+
+cay.KiemTraBST(cay.root)

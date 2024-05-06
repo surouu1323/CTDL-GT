@@ -2,7 +2,7 @@ class Node:
     def __init__(self,HeSo,SoMu):
         self.HeSo = HeSo
         self.SoMu = SoMu
-        self.next = None
+        self.KeTiep = None
         
 class PhuongThuc:
     def __init__(self):
@@ -12,28 +12,42 @@ class PhuongThuc:
         new_node = Node(new_HeSo,new_SoMu)
         if self.head is None:
             self.head = new_node
-            return
-        last = self.head
-        while last.next:
-            if last.next.SoMu < new_node.SoMu:
-                temp = last.next
-                last.next = new_node
-                new_node.next = temp
-                return
-            last = last.next
-        last.next = new_node
+        else:
+            last = self.head
+            while last.KeTiep:
+                if last.KeTiep.SoMu < new_node.SoMu:
+                    temp = last.KeTiep
+                    last.KeTiep = new_node
+                    new_node.KeTiep = temp
+                    return
+                last = last.KeTiep
+            last.KeTiep = new_node
         
-    def Print(self):
+    def InDaThuc(self):
         temp = self.head
         while temp:
-            dathuc = [temp.HeSo if temp.HeSo > 1 else "","x^",temp.SoMu,'+' if temp.next else ""]
-            dathuc_string = ''.join([str(m) for m in dathuc])
-            print(dathuc_string, end=' ')
-            temp = temp.next
             
-dathuc = PhuongThuc()
-dathuc.Them(1,2)
-dathuc.Them(4,0)
-dathuc.Them(3,1)
+            if temp.HeSo > 0:
+                dau = '+'
+            elif temp.HeSo < 0:
+                dau = '-'
+            else:
+                dau = '-'
+            if temp.HeSo == 1 or temp.HeSo == -1:
+                so = None
+            else:
+                so = abs(temp.HeSo)
+            
+            
+            DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '','' if so is None else so,'x','^' if temp.SoMu else '', temp.SoMu if temp.SoMu else '']
+            DaThuc_string = ''.join([str(m) for m in DaThuc])
+            print(DaThuc_string, end=' ')
+            temp = temp.KeTiep
+        print()
+            
+DaThuc = PhuongThuc()
+DaThuc.Them(1,2)
+DaThuc.Them(4,0)
+DaThuc.Them(3,1)
 
-dathuc.Print()
+DaThuc.InDaThuc()

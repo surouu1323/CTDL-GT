@@ -2,7 +2,7 @@ class Node:
     def __init__(self,HeSo,SoMu):
         self.HeSo = HeSo
         self.SoMu = SoMu
-        self.next = None
+        self.KeTiep = None
         
 class PhuongThuc:
     def __init__(self):
@@ -12,39 +12,39 @@ class PhuongThuc:
         new_node = Node(new_HeSo,new_SoMu)
         if self.head is None:
             self.head = new_node
-            return
-        last = self.head
-        while last.next:
-            if last.next.SoMu < new_node.SoMu:
-                last.next = new_node
-                return
-            last = last.next
-        last.next = new_node
+        else:
+            last = self.head
+            while last.KeTiep:
+                if last.KeTiep.SoMu < new_node.SoMu:
+                    last.KeTiep = new_node
+                    return
+                last = last.KeTiep
+            last.KeTiep = new_node
         
     def RutGon(self):
         goc = self.head
         pre_goc = goc
         while goc:
-            search = goc.next
+            search = goc.KeTiep
             while search:
                 if search.SoMu == goc.SoMu:
                     goc.HeSo += search.HeSo
-                    goc.next = search.next
-                search = search.next
+                    goc.KeTiep = search.KeTiep
+                search = search.KeTiep
             if goc.HeSo == 0:
-                if goc.next is None:
-                    pre_goc.next = None
+                if goc.KeTiep is None:
+                    pre_goc.KeTiep = None
                 elif goc == self.head:
-                    self.head = goc.next
+                    self.head = goc.KeTiep
                     pre_goc = self.head   
                 else:
-                    pre_goc.next = goc.next
+                    pre_goc.KeTiep = goc.KeTiep
                 goc = pre_goc
             else:
-                goc = goc.next
+                goc = goc.KeTiep
 
         
-    def Print(self):
+    def InDaThuc(self):
         temp = self.head
         while temp:
             
@@ -60,20 +60,21 @@ class PhuongThuc:
                 so = abs(temp.HeSo)
             
             
-            dathuc = [dau if temp != self.head or temp.HeSo < 0 else '','' if so is None else so,'x','^' if temp.SoMu else '', temp.SoMu if temp.SoMu else '']
-            dathuc_string = ''.join([str(m) for m in dathuc])
-            print(dathuc_string, end=' ')
-            temp = temp.next
+            DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '','' if so is None else so,'x','^' if temp.SoMu else '', temp.SoMu if temp.SoMu else '']
+            DaThuc_string = ''.join([str(m) for m in DaThuc])
+            print(DaThuc_string, end=' ')
+            temp = temp.KeTiep
+        print()
 
         
-dathuc = PhuongThuc()
-dathuc.Them(-2,2)
-dathuc.Them(2,2)
-dathuc.Them(-2,2)
-dathuc.Them(3,1)
-dathuc.Them(-3,1)
-dathuc.Them(-3,0)
-dathuc.Print()
+DaThuc = PhuongThuc()
+DaThuc.Them(-2,2)
+DaThuc.Them(2,2)
+DaThuc.Them(-2,2)
+DaThuc.Them(3,1)
+DaThuc.Them(-3,1)
+DaThuc.Them(-3,0)
+DaThuc.InDaThuc()
 print("\n")
-dathuc.RutGon()
-dathuc.Print()
+DaThuc.RutGon()
+DaThuc.InDaThuc()

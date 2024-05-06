@@ -4,7 +4,7 @@ class Node:
         self.left = None
         self.right = None
 
-class BinaryTree:
+class PhuongThuc:
     def __init__(self):
         self.root = None
 
@@ -30,7 +30,7 @@ class BinaryTree:
         return 1 + self._DemNut(node.left) + self._DemNut(node.right)
 
 # Tạo một cây nhị phân
-tree = BinaryTree()
+tree = PhuongThuc()
 
 # Xây dựng cây nhị phân
 tree.root = Node(1)

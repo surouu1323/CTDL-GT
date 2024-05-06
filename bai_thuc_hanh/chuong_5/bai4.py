@@ -4,7 +4,7 @@ class Node:
         self.left = None
         self.right = None
 
-class BinaryTree:
+class PhuongThuc:
     def __init__(self):
         self.root = None
 
@@ -19,17 +19,17 @@ class BinaryTree:
             return left_count + right_count + 1
 
 # Tạo một cây nhị phân
-tree = BinaryTree()
+cay = PhuongThuc()
 
 # Xây dựng cây nhị phân
-tree.root = Node(1)
-tree.root.left = Node(2)
-tree.root.right = Node(3)
-tree.root.left.left = Node(4)
-tree.root.left.right = Node(5)
-tree.root.right.left = Node(6)
+cay.root = Node(1)
+cay.root.left = Node(2)
+cay.root.right = Node(3)
+cay.root.left.left = Node(4)
+cay.root.left.right = Node(5)
+
 
 # Gọi phương thức SoNutTrungGian() để đếm số nút trung gian
-so_nut_trung_gian = tree.SoNutTrungGian(tree.root)
+so_nut_trung_gian = cay.SoNutTrungGian(cay.root)
 
 print("Số nút trung gian của cây là:", so_nut_trung_gian)

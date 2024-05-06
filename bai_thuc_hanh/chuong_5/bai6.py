@@ -4,7 +4,7 @@ class Node:
         self.left = None
         self.right = None
 
-class BinaryTree:
+class PhuongThuc:
     def __init__(self):
         self.root = None
 
@@ -29,19 +29,19 @@ class BinaryTree:
         return max(left_height, right_height) + 1
 
 # Tạo một cây nhị phân
-tree = BinaryTree()
+cay = PhuongThuc()
 
 # Xây dựng cây nhị phân
-tree.root = Node(4)
-tree.root.left = Node(2)
-tree.root.right = Node(6)
-tree.root.left.left = Node(1)
-tree.root.left.right = Node(3)
-tree.root.right.left = Node(5)
-tree.root.right.right = Node(7)
+cay.root = Node(4)
+cay.root.left = Node(2)
+cay.root.right = Node(6)
+cay.root.left.left = Node(1)
+cay.root.left.right = Node(3)
+cay.root.right.left = Node(5)
+cay.root.right.right = Node(7)
 
 # Gọi phương thức KiemTraAVL() để kiểm tra xem cây có phải là cây AVL hay không
-is_avl = tree.KiemTraAVL(tree.root)
+is_avl = cay.KiemTraAVL(cay.root)
 
 # In kết quả
 if is_avl:

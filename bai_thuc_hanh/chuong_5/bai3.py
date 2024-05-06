@@ -4,7 +4,7 @@ class Node:
         self.left = None
         self.right = None
 
-class BinaryTree:
+class PhuongThuc:
     def __init__(self):
         self.root = None
 
@@ -19,17 +19,17 @@ class BinaryTree:
             return left_count + right_count
 
 # Tạo một cây nhị phân
-tree = BinaryTree()
+cay = PhuongThuc()
 
 # Xây dựng cây nhị phân
-tree.root = Node(1)
-tree.root.left = Node(2)
-tree.root.right = Node(3)
-tree.root.left.left = Node(4)
-tree.root.left.right = Node(5)
-tree.root.right.left = Node(6)
+cay.root = Node(1)
+cay.root.left = Node(2)
+cay.root.right = Node(3)
+cay.root.left.left = Node(4)
+cay.root.left.right = Node(5)
+cay.root.right.left = Node(6)
 
 # Gọi phương thức SoNutLa() để đếm số nút lá
-so_nut_la = tree.SoNutLa(tree.root)
+so_nut_la = cay.SoNutLa(cay.root)
 
 print("Số nút lá của cây là:", so_nut_la)

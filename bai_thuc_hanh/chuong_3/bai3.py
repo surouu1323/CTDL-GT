@@ -1,93 +1,117 @@
-class Dathuc:
+class Node:
+    def __init__(self,HeSo,SoMu):
+        self.HeSo = HeSo
+        self.SoMu = SoMu
+        self.KeTiep = None
+        
+class PhuongThuc:
+    
     def __init__(self):
-        self.Head = None
+        self.head = None
 
-    def ThemSoHang(self, heso, somu):
+    def Them(self, heso, somu):
         node = Node(heso, somu)
-        if self.Head is None:
-            self.Head = node
+        if self.head is None:
+            self.head = node
         else:
-            current = self.Head
+            current = self.head
             while current.KeTiep is not None:
                 current = current.KeTiep
             current.KeTiep = node
 
-    def Cong(self, dathuc2):
-        result = Dathuc()
-        p1 = self.Head
-        p2 = dathuc2.Head
+    def Cong(self, DaThuc2):
+        result = PhuongThuc()
+        p1 = self.head
+        p2 = DaThuc2.head
 
         while p1 is not None and p2 is not None:
             if p1.SoMu > p2.SoMu:
-                result.ThemSoHang(p1.HeSo, p1.SoMu)
+                result.Them(p1.HeSo, p1.SoMu)
                 p1 = p1.KeTiep
             elif p1.SoMu < p2.SoMu:
-                result.ThemSoHang(p2.HeSo, p2.SoMu)
+                result.Them(p2.HeSo, p2.SoMu)
                 p2 = p2.KeTiep
             else:
                 heso_sum = p1.HeSo + p2.HeSo
                 if heso_sum != 0:
-                    result.ThemSoHang(heso_sum, p1.SoMu)
+                    result.Them(heso_sum, p1.SoMu)
                 p1 = p1.KeTiep
                 p2 = p2.KeTiep
 
         while p1 is not None:
-            result.ThemSoHang(p1.HeSo, p1.SoMu)
+            result.Them(p1.HeSo, p1.SoMu)
             p1 = p1.KeTiep
 
         while p2 is not None:
-            result.ThemSoHang(p2.HeSo, p2.SoMu)
+            result.Them(p2.HeSo, p2.SoMu)
             p2 = p2.KeTiep
 
         result.RutGon()
         return result
-
+    
     def RutGon(self):
-        if self.Head is None:
-            return
-
-        current = self.Head
-        while current is not None and current.KeTiep is not None:
-            if current.SoMu == current.KeTiep.SoMu:
-                current.HeSo += current.KeTiep.HeSo
-                current.KeTiep = current.KeTiep.KeTiep
-            elif current.HeSo == 0:
-                current.KeTiep = current.KeTiep.KeTiep
+        goc = self.head
+        pre_goc = goc
+        while goc:
+            search = goc.KeTiep
+            while search:
+                if search.SoMu == goc.SoMu:
+                    goc.HeSo += search.HeSo
+                    goc.KeTiep = search.KeTiep
+                search = search.KeTiep
+            if goc.HeSo == 0:
+                if goc.KeTiep is None:
+                    pre_goc.KeTiep = None
+                elif goc == self.head:
+                    self.head = goc.KeTiep
+                    pre_goc = self.head   
+                else:
+                    pre_goc.KeTiep = goc.KeTiep
+                goc = pre_goc
             else:
-                current = current.KeTiep
+                goc = goc.KeTiep
 
-    def inDathuc(self):
-        current = self.Head
-        while current is not None:
-            print(f"{current.HeSo}x^{current.SoMu}", end=" ")
-            current = current.KeTiep
+    def InDaThuc(self):
+        temp = self.head
+        while temp:
+            
+            if temp.HeSo > 0:
+                dau = '+'
+            elif temp.HeSo < 0:
+                dau = '-'
+            else:
+                dau = '-'
+            if temp.HeSo == 1 or temp.HeSo == -1:
+                so = None
+            else:
+                so = abs(temp.HeSo)
+            
+            
+            DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '','' if so is None else so,'x','^' if temp.SoMu else '', temp.SoMu if temp.SoMu else '']
+            DaThuc_string = ''.join([str(m) for m in DaThuc])
+            print(DaThuc_string, end=' ')
+            temp = temp.KeTiep
         print()
 
 
-class Node:
-    def __init__(self, heso, somu):
-        self.HeSo = heso
-        self.SoMu = somu
-        self.KeTiep = None
-
-
 # Tạo đa thức 1
-dathuc1 = Dathuc()
-dathuc1.ThemSoHang(2, 3)
-dathuc1.ThemSoHang(-1, 2)
-dathuc1.ThemSoHang(3, 1)
-dathuc1.ThemSoHang(4, 0)
-
-dathuc1.inDathuc()  # Kết quả: 2x^3 - 1x^2 + 3x^1 + 4x^0
+DaThuc1 = PhuongThuc()
+DaThuc1.Them(2, 3)
+DaThuc1.Them(-2, 3)
+DaThuc1.Them(-1, 2)
+DaThuc1.Them(3, 1)
+DaThuc1.Them(4, 0)
+DaThuc1.RutGon()
+DaThuc1.InDaThuc()  # Kết quả: 2x^3 - 1x^2 + 3x^1 + 4x^0
 
 # Tạo đa thức 2
-dathuc2 = Dathuc()
-dathuc2.ThemSoHang(1, 2)
-dathuc2.ThemSoHang(-2, 1)
-dathuc2.ThemSoHang(1, 0)
-
-dathuc2.inDathuc()  # Kết quả: 1x^2 - 2x^1 + 1x^0
+DaThuc2 = PhuongThuc()
+DaThuc2.Them(1, 2)
+DaThuc2.Them(-2, 1)
+DaThuc2.Them(1, 0)
+DaThuc2.RutGon()
+DaThuc2.InDaThuc()  # Kết quả: 1x^2 - 2x^1 + 1x^0
 
 # Cộng hai đa thức
-dathuc_ketqua = dathuc1.Cong(dathuc2)
-dathuc_ketqua.inDathuc()  # Kết quả: 3x^3 - 3x^1 + 5x^0
+DaThuc_ketqua = DaThuc1.Cong(DaThuc2)
+DaThuc_ketqua.InDaThuc()  # Kết quả: 3x^3 - 3x^1 + 5x^0

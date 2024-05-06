@@ -4,11 +4,12 @@ class Node:
         self.left = None
         self.right = None
 
-class BinaryTree:
+class PhuongThuc:
     def __init__(self):
         self.root = None
 
     def Chep(self):
+        
         return self._Chep(self.root)
 
     def _Chep(self, node):
@@ -22,29 +23,32 @@ class BinaryTree:
         return new_node
 
 # Tạo một cây nhị phân
-tree = BinaryTree()
+cay = PhuongThuc()
 
 # Xây dựng cây nhị phân
-tree.root = Node(1)
-tree.root.left = Node(2)
-tree.root.right = Node(3)
-tree.root.left.left = Node(4)
-tree.root.left.right = Node(5)
+cay.root = Node(1)
+cay.root.left = Node(2)
+cay.root.right = Node(3)
+cay.root.left.left = Node(4)
+cay.root.left.right = Node(5)
 
 # Sao chép cây nhị phân
-copied_tree = tree.Chep()
+copied_cay = cay.Chep()
+
+# Dùng đệ quy để in cây BST
+def inOrder(node):
+    if node.left is None or node.right is None:
+        print(node.info, end=" ")
+    else:
+        inOrder(node.left)
+        inOrder(node.right)
+        print(node.info, end=" ")
 
 # In cây nhị phân ban đầu
 print("Cây nhị phân ban đầu:")
-# Gọi phương thức inOrder để in cây nhị phân
-def inOrder(node):
-    if node is not None:
-        inOrder(node.left)
-        print(node.info, end=" ")
-        inOrder(node.right)
-inOrder(tree.root)
+inOrder(cay.root)
 print()
 
 # In cây nhị phân đã sao chép
 print("Cây nhị phân đã sao chép:")
-inOrder(copied_tree)
+inOrder(copied_cay)

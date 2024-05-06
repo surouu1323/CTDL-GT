@@ -4,7 +4,7 @@ class Node:
         self.left = None
         self.right = None
 
-class BinaryTree:
+class PhuongThuc:
     def __init__(self):
         self.root = None
 
@@ -17,16 +17,16 @@ class BinaryTree:
             return max(left_height, right_height) + 1
 
 # Tạo một cây nhị phân
-tree = BinaryTree()
+cay = PhuongThuc()
 
 # Xây dựng cây nhị phân
-tree.root = Node(1)
-tree.root.left = Node(2)
-tree.root.right = Node(3)
-tree.root.left.left = Node(4)
-tree.root.left.right = Node(5)
+cay.root = Node(1)
+cay.root.left = Node(2)
+cay.root.right = Node(3)
+cay.root.left.left = Node(4)
+cay.root.left.right = Node(5)
 
 # Gọi phương thức ChieuCao() để tính chiều cao
-chieu_cao = tree.ChieuCao(tree.root)
+chieu_cao = cay.ChieuCao(cay.root)
 
 print("Chiều cao của cây là:", chieu_cao)
