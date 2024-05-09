@@ -26,7 +26,7 @@ class PhuongThuc:
         
         # Nếu từ trong danh sách bucket
         if bucket.get("tu",0) == tu:
-            kq_list = ['từ:',tu,", có từ đồng nghĩa là: ", bucket['dong_nghia'], ", có từ trái nghĩa là: ", bucket['trai_nghia']]            
+            kq_list = ['từ:',tu,(", có từ đồng nghĩa là: ", bucket['dong_nghia']) if bucket['dong_nghia'] else '',( ", có từ trái nghĩa là: ", bucket['trai_nghia']) if bucket['trai_nghia'] else '']            
             for m in kq_list:
                 print (f'{m}', end= ' ')
             print()
