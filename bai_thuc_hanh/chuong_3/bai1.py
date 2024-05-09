@@ -21,7 +21,12 @@ class PhuongThuc:
                     new_node.KeTiep = temp
                     return
                 last = last.KeTiep
-            last.KeTiep = new_node
+            if last.SoMu < new_node.SoMu:
+                temp = last
+                self.head = new_node
+                new_node.KeTiep = temp
+            else:
+                last.KeTiep = new_node
         
     def InDaThuc(self):
         temp = self.head
@@ -46,8 +51,9 @@ class PhuongThuc:
         print()
             
 DaThuc = PhuongThuc()
+DaThuc.Them(3,1)
+
 DaThuc.Them(1,2)
 DaThuc.Them(4,0)
-DaThuc.Them(3,1)
 
 DaThuc.InDaThuc()

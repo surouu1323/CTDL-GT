@@ -10,11 +10,17 @@ class Nghia:
     
         
 class MucTu:
-    def __init__ (self,loai_tu):
-        self.loai_tu = loai_tu
-        self.muc_tu = []
+    def __init__ (self):
+        self.head = None
         
     def them_muc_tu (self, loai_tu, nghia, vi_du):
         new_nghia = Nghia (loai_tu, nghia, vi_du)
-        
-        if 
+        if self.head is None:
+            self.head = new_nghia
+        else:
+            last = self.head
+            while last.ke_tiep:
+                if last.ke_tiep.nghia < new_nghia.nghia:
+                    temp = last.ke_tiep
+                    last.ke_tiep = new_nghia   
+                    new_nghia.ke_tiep = temp
