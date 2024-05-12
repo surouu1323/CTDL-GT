@@ -1,0 +1,32 @@
+[
+    {
+        "muc_tu": "a",
+        "danh_sach_nghia": [
+            {
+                "loai_tu": "g",
+                "nghia": "c",
+                "vi_du": "d"
+            },
+            {
+                "loai_tu": "b",
+                "nghia": "c",
+                "vi_du": "d"
+            }
+        ]
+    },
+    {
+        "muc_tu": "av",
+        "danh_sach_nghia": [
+            {
+                "loai_tu": "gv",
+                "nghia": "cv",
+                "vi_du": "d"
+            },
+            {
+                "loai_tu": "bv",
+                "nghia": "c",
+                "vi_du": "dv"
+            }
+        ]
+    }
+]

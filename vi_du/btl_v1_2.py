@@ -5,9 +5,9 @@ class Nghia:
         self.vi_du = vi_du
         self.next = None
         
-    def __repr__(self):
-        return f"({self.loai_tu}): {self.nghia}. Ví dụ: {self.vi_du}"
-    
+    # def __repr__(self):
+    #     return f"({self.loai_tu}): {self.nghia}. Ví dụ: {self.vi_du}"
+   
 class MucTu:
     def __init__(self, muc_tu):
         self.head = None
@@ -29,9 +29,13 @@ class MucTu:
     def xem_muc_tu(self):
         # In danh sách liên kết các nghĩa
         current = self.head
-        while current:
-            print(current)
+        nghia= []
+        while current:  
+            nghia.append(f"({current.loai_tu}): {current.nghia}. Ví dụ: {current.vi_du}")
             current = current.next
+            
+        nghia_str = '\n'.join(str(i) for i in nghia)
+        return f"{self.muc_tu} \n{nghia_str}"
 
 class BSTNode:
     def __init__(self, muc_tu):
@@ -40,8 +44,9 @@ class BSTNode:
         self.right = None
     
 class BST:
-    def __init__(self):
+    def __init__(self,ky_tu_dau):
         self.root = None
+        self.ky_tu_dau = ky_tu_dau
         
     def insert(self, muc_tu):
         if not self.root:
@@ -69,13 +74,13 @@ class BST:
             )
     
     def find(self, muc_tu):
-        found_muc_tu = self._find_recursive(self.root, muc_tu)
+        return self._find_recursive(self.root, muc_tu)
     
-        if found_muc_tu:
-            print("Mục từ tìm thấy:")
-            found_muc_tu.xem_muc_tu()
-        else:
-            print("Mục từ không tìm thấy.")
+        # if found_muc_tu:
+        #     print("Mục từ tìm thấy:")
+        #     found_muc_tu.xem_muc_tu()
+        # else:
+        #     print("Mục từ không tìm thấy.")
     
     def _find_recursive(self, node, muc_tu):
         if not node:
@@ -134,73 +139,86 @@ class BST:
 class Hash:
     def __init__(self):
       # Bảng băm có 26 ô cho các ký tự từ 'a' đến 'z'
-        self.table = {chr(i):[None] for i in range(ord('a'), ord('z')+1)}
+        self.table = {chr(i):[] for i in range(ord('a'), ord('z')+1)}
         
     def __hash_func(self, word):
         # Hàm băm lấy ký tự đầu tiên
         return word[0].lower() # Đảm bảo xử lý chữ hoa chữ thường  
     
-    def NhapTu(self, muc_tu, td):        
+    def NhapTu(self, muc_tu, loai_tu, nghia, vi_du):        
         # Tính vị trí trong bảng băm
         ky_tu_dau = self.__hash_func(muc_tu)
-        bucket = self.table[ky_tu_dau]
         
-        if any(elem is None for elem in bucket) :
-            # Tạo một từ điển cho từ này
-            word_info = {
-                'ky_tu_dau' : ky_tu_dau,
-                'cay_bst' : [],
-            }
-            cay_bst = BST()
+        if self.table[ky_tu_dau] == []:
+            td = MucTu(muc_tu)
+            td.them_muc_tu(loai_tu, nghia, vi_du)
+            cay_bst = BST(ky_tu_dau)
             cay_bst.insert(td)
-            word_info['cay_bst'] = cay_bst
-            self.table[ky_tu_dau] = word_info
+            self.table[ky_tu_dau] = cay_bst
+        elif self.table[ky_tu_dau].find(muc_tu):
+            temp = self.table[ky_tu_dau].find(muc_tu)
+            temp.them_muc_tu(loai_tu, nghia, vi_du)
         else:
-            cay_bst = self.table[ky_tu_dau].get('cay_bst',0)
+            td = MucTu(muc_tu)
+            td.them_muc_tu(loai_tu, nghia, vi_du)
+            cay_bst = self.table[ky_tu_dau]
             cay_bst.insert(td)
-
         
     def TraTu(self, muc_tu):
         # Tìm từ trong bảng băm
         ky_tu_dau = self.__hash_func(muc_tu)
         
-        # Nếu từ trong danh sách 
-        if self.table[ky_tu_dau].get("ky_tu_dau",0) == ky_tu_dau:
-            return self.table[ky_tu_dau].get('cay_bst',0)
+        if self.table[ky_tu_dau] != [] and self.table[ky_tu_dau].find(muc_tu):
+            return self.table[ky_tu_dau].find(muc_tu).xem_muc_tu()
         else:
             return None
-
+        
+    def XoaTu(self, muc_tu):
+        ky_tu_dau = self.__hash_func(muc_tu)
+        self.table[ky_tu_dau].delete(muc_tu)
+        
 
 import json
 
-def save_dictionary(hash, file_name):
-    entries = hash.table
+def save_dictionary(hash):
+    file_name = "N21DCDT083_bam.json"
+    hash_table = hash.table
     dictionary_data = []
-    for ky_tu_dau in entries:
-        for entry in entries[ky_tu_dau]:
-            entry_data = {
-                "word": entry.word,
-                "meanings": [{"part_of_speech": m.part_of_speech, "definition": m.definition, "example": m.example} for m in entry.meanings]
-            }
-            dictionary_data.append(entry_data)
+    for ky_tu_dau, bst_group in hash_table.items():
+        if bst_group:
+            muc_tu = bst_group.inorder_traversal()
+            dictionary_data = []
+            for danh_sach_nghia in muc_tu:
+                
+                current = danh_sach_nghia.head
+                nghia= []
+                while current:  
+                    nghia.append({"loai_tu":current.loai_tu, "nghia":current.nghia, "vi_du": current.vi_du})
+                    current = current.next
+                danh_sach_nghia_dict = {
+                    "muc_tu": danh_sach_nghia.muc_tu,
+                    "danh_sach_nghia": nghia
+                }
+                dictionary_data.append(danh_sach_nghia_dict)
 
     with open(file_name, 'w') as f:
         json.dump(dictionary_data, f, indent=4)
-
-def load_dictionary(filename):
-    bst = BSTDictionary()
-    with open(filename, 'r') as f:
+        
+def load_dictionary(hash):
+    file_name = "N21DCDT083_bam.json"
+    with open(file_name, 'r') as f:
         dictionary_data = json.load(f)
-        for entry_data in dictionary_data:
-            entry = Entry(entry_data["word"])
-            for meaning_data in entry_data["meanings"]:
-                entry.add_meaning(meaning_data["part_of_speech"], meaning_data["definition"], meaning_data["example"])
-            bst.insert(entry)
-    return bst
+        for data in dictionary_data:
+            muc_tu = data["muc_tu"]
+            for phan_nghia_data in data["danh_sach_nghia"]:
+                hash.NhapTu(muc_tu,phan_nghia_data["loai_tu"], phan_nghia_data["nghia"], phan_nghia_data["vi_du"])
+
 
 def main():
     dictionary = Hash()
-    file_name = "N21DCDT083_bam.json"
+    # tu_tra_cuu = 'a'
+    # dictionary.NhapTu(tu_tra_cuu,'v', 'c', 'd')
+    
     while True:
         print("\nChức năng:")
         print("1. Thêm một mục từ mới vào từ điển.")
@@ -213,41 +231,36 @@ def main():
         choice = input("Lựa chọn: ")
 
         if choice == "1":
-            muc_tu = input("Nhập mục từ: ")
+            tu_tra_cuu = input("Nhập mục từ: ")
             loai_tu = input("Nhập loại từ : ")
             nghia = input("Nhập nghĩa: ")
-            vi_du = input("Nhập ví dụ: ")
-            td = MucTu(muc_tu)
-            td.them_muc_tu(loai_tu, nghia, vi_du)
-            
-            bst = dictionary.NhapTu(muc_tu, td)
-            
+            vi_du = input("Nhập ví dụ: ")    
+            dictionary.NhapTu(tu_tra_cuu,loai_tu, nghia, vi_du)       
             print("Thêm từ thành công.")
 
         elif choice == "2":
-            muc_tu = input("Nhập từ cần xóa: ")
-            bst = dictionary.TraTu(muc_tu)
+            tu_tra_cuu = input("Nhập từ cần xóa: ")
+            bst = dictionary.TraTu(tu_tra_cuu)
             if bst is None:
                 print ("Không có từ cần tìm kiếm")  # Nếu không tìm thấy từ
             else:
-                bst_dictionary.delete(muc_tu)
+                dictionary.XoaTu(tu_tra_cuu)
                 print("Xóa từ thành công.")
 
         elif choice == "3":
-            muc_tu = input("Nhập từ cần tìm kiếm: ")
-            bst = dictionary.TraTu(muc_tu)
+            tu_tra_cuu = input("Nhập từ cần tìm kiếm: ")
+            bst = dictionary.TraTu(tu_tra_cuu)
             if bst is None:
                 print ("Không có từ cần tìm kiếm")  # Nếu không tìm thấy từ
             else:
-                bst.find(muc_tu)
+                print(bst)
 
-        elif choice == "4":
-            save_dictionary(dictionary, file_name)
+        elif choice == "4": 
+            save_dictionary(dictionary)
             print("Dictionary saved.")
 
         elif choice == "5":
-            filename = input("Enter the filename to load from: ")
-            bst_dictionary = load_dictionary(filename)
+            load_dictionary(dictionary)
             print("Dictionary loaded.")
 
         elif choice == "6":
