@@ -1,26 +1,24 @@
 class PhuongThuc:
     def __init__(self, arr):
-        self.arr = arr    
+        self.arr = arr # Khởi tạo một đối tượng PhuongThuc với một thuộc tính là một mảng arr.    
+        
     def TrungCot(self):
         # Kiểm tra số hàng và số cột của ma trận
         rows = len(self.arr)
         cols = len(self.arr[0])
-        if rows != cols:
+        if rows != cols: # kiểm tra xem số hàng và số cột của ma trận có bằng nhau hay không.
             return False
         
         # Kiểm tra mỗi phần tử chứa một số nguyên của ma trận
         for i in self.arr:
-            if i < [0]:
+            if i < [0]: # kiểm tra xem các phần tử của ma trận có phải là số nguyên không âm không
                 return False
-        
-        cols = len(self.arr[0])
-        rows = len(self.arr)
 
         for i in range(cols):
-            for j in range(i + 1, cols):
+            for j in range(i + 1, cols):   # lặp qua các cột của ma trận
                 column_i = [self.arr[k][i] for k in range(rows)]
                 column_j = [self.arr[k][j] for k in range(rows)]
-                if column_i == column_j:
+                if column_i == column_j: #  Nếu có hai cột nào có tất cả các phần tử giống nhau
                     return True
 
         return False

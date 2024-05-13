@@ -1,6 +1,7 @@
 class PhuongThuc:
     def __init__(self, arr):
-        self.arr = arr
+        self.arr = arr # Khởi tạo một đối tượng PhuongThuc với một thuộc tính là một mảng arr.
+        
     def Nhan(self,b):
         # Chuyển đổi mảng thành số nguyên
         a = self.arr
@@ -12,6 +13,7 @@ class PhuongThuc:
 
         # Kiểm tra tràn số
         if result > 2**31 - 1:
+            # Nếu kết quả vượt qua giới hạn của số nguyên 32-bit (2^31 - 1), trả về [-1] để chỉ ra rằng đã xảy ra tràn số.
             return [-1]
 
         # Phương thức trả về một số nguyên là kết quả của a + b nếu kết quả không bị tràn

@@ -30,6 +30,7 @@ class PhuongThuc:
 
         for row in range(rows):
             for col in range(cols):
+                # có được đánh dấu đã thăm chưa (visited[row][col]), và có phải là đất liền không (matrix[row][col] == 0)
                 if not visited[row][col] and self.matrix[row][col] == 1:
                     area = self._DienTich(self.matrix, visited, row, col)
                     max_area = max(max_area, area)

@@ -5,12 +5,12 @@ class PhuongThuc:
         # Kiểm tra số hàng và số cột của ma trận
         rows = len(self.arr)
         cols = len(self.arr[0])
-        if rows != cols:
+        if rows != cols: #  kiểm tra xem số hàng và số cột của ma trận có bằng nhau hay không
             return False
         
         # Kiểm tra mỗi phần tử chứa một số nguyên của ma trận
         for i in self.arr:
-            if i < [0]:
+            if i < [0]: # kiểm tra xem các phần tử của ma trận có phải là số nguyên không âm không
                 return False
 
         n = len(self.arr)
