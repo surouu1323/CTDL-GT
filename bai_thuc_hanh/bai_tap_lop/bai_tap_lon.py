@@ -16,6 +16,8 @@ class MucTu:
         if self.head is None or new_nghia.loai_tu > self.head.loai_tu:
             new_nghia.next = self.head
             self.head = new_nghia
+        elif new_nghia.loai_tu == self.head.loai_tu :    
+            self.head = new_nghia
         else:
             current = self.head
             while current.next and current.next.loai_tu < new_nghia.loai_tu:
@@ -172,43 +174,63 @@ class Hash:
 import json
 
 def save_dictionary(hash):
-    file_name = "N21DCDT083_bam.json"
-    hash_table = hash.table
-    dictionary_data = []
+    file_name = "E:/thanhdzai/stuff/tai lieu/dai hoc/cu/cau truc du lieu va giai thuat/bai tap/CTDL-GT/bai_thuc_hanh/bai_tap_lop/N21DCDT083_bam.json"  # Tên của file JSON để lưu từ điển
+    hash_table = hash.table  # Lấy bảng băm từ hash.table
+    dictionary_data = []  # Danh sách để lưu dữ liệu từ điển
+    
     for ky_tu_dau, bst_group in hash_table.items():
-        if bst_group:
-            muc_tu = bst_group.inorder_traversal()
-            dictionary_data = []
-            for danh_sach_nghia in muc_tu:
+        if bst_group:  # Kiểm tra nếu nhóm BST không rỗng
+            muc_tu_list = bst_group.inorder_traversal()  # Duyệt cây theo thứ tự giữa và lấy danh sách các mục từ
+            
+            muc_tu_dict_list = []  # Danh sách để lưu các mục từ và nghĩa của nó
+            for danh_sach_nghia in muc_tu_list:
+                current = danh_sach_nghia.head  # Bắt đầu từ đầu danh sách các nghĩa
+                nghia_list = []  # Danh sách để lưu các nghĩa của mục từ
                 
-                current = danh_sach_nghia.head
-                nghia= []
-                while current:  
-                    nghia.append({"loai_tu":current.loai_tu, "nghia":current.nghia, "vi_du": current.vi_du})
-                    current = current.next
-                danh_sach_nghia_dict = {
-                    "muc_tu": danh_sach_nghia.muc_tu,
-                    "danh_sach_nghia": nghia
+                while current:  # Duyệt qua từng nghĩa trong danh sách
+                    nghia_list.append({
+                        "loai_tu": current.loai_tu,  # Lấy loại từ
+                        "nghia": current.nghia,  # Lấy nghĩa
+                        "vi_du": current.vi_du  # Lấy ví dụ
+                    })
+                    current = current.next  # Chuyển đến nghĩa tiếp theo
+                
+                muc_tu_dict = {
+                    "muc_tu": danh_sach_nghia.muc_tu,  # Lấy mục từ
+                    "danh_sach_nghia": nghia_list  # Gán danh sách các nghĩa vào mục từ
                 }
-                dictionary_data.append(danh_sach_nghia_dict)
-
-    with open(file_name, 'w') as f:
-        json.dump(dictionary_data, f, indent=4)
+                muc_tu_dict_list.append(muc_tu_dict)  # Thêm mục từ vào danh sách
         
+            danh_sach_bang_hash_dict = {
+                "ky_tu_dau": ky_tu_dau,
+                "nhieu_muc_tu": muc_tu_dict_list  # Gán danh sách các mục từ vào key đầu
+            }
+            dictionary_data.append(danh_sach_bang_hash_dict)  # Thêm vào danh sách dữ liệu từ điển
+    
+    # Mở file JSON để ghi dữ liệu
+    with open(file_name, 'w') as f:
+        json.dump(dictionary_data, f, indent=5)  # Ghi dữ liệu từ điển vào file JSON (indent=5)
+
 def load_dictionary(hash):
-    file_name = "N21DCDT083_bam.json"
+    file_name = "E:/thanhdzai/stuff/tai lieu/dai hoc/cu/cau truc du lieu va giai thuat/bai tap/CTDL-GT/bai_thuc_hanh/bai_tap_lop/N21DCDT083_bam.json"
     with open(file_name, 'r') as f:
-        dictionary_data = json.load(f)
+        dictionary_data = json.load(f)  # Đọc dữ liệu từ file JSON
+        
         for data in dictionary_data:
-            muc_tu = data["muc_tu"]
-            for phan_nghia_data in data["danh_sach_nghia"]:
-                hash.NhapTu(muc_tu,phan_nghia_data["loai_tu"], phan_nghia_data["nghia"], phan_nghia_data["vi_du"])
+            ky_tu_dau = data["ky_tu_dau"]  # Lấy key đầu
+            nhieu_muc_tu = data["nhieu_muc_tu"]  # Lấy danh sách các mục từ
+            
+            for muc_tu_data in nhieu_muc_tu:
+                muc_tu = muc_tu_data["muc_tu"]  # Lấy mục từ
+                danh_sach_nghia = muc_tu_data["danh_sach_nghia"]  # Lấy danh sách các nghĩa
+                for phan_nghia_data in danh_sach_nghia:
+                    # Nhập từng nghĩa vào bảng băm
+                    hash.NhapTu(muc_tu, phan_nghia_data["loai_tu"], phan_nghia_data["nghia"], phan_nghia_data["vi_du"])
+
 
 
 def main():
     dictionary = Hash()
-    # tu_tra_cuu = 'a'
-    # dictionary.NhapTu(tu_tra_cuu,'v', 'c', 'd')
     
     while True:
         print("\nChức năng:")
@@ -226,7 +248,7 @@ def main():
             loai_tu = input("Nhập loại từ : ")
             nghia = input("Nhập nghĩa: ")
             vi_du = input("Nhập ví dụ: ")    
-            dictionary.NhapTu(tu_tra_cuu,loai_tu, nghia, vi_du)       
+            dictionary.NhapTu(tu_tra_cuu.lower(),loai_tu.lower(), nghia.lower(), vi_du.lower())       
             print("Thêm từ thành công.")
 
         elif choice == "2":
@@ -248,7 +270,7 @@ def main():
 
         elif choice == "4": 
             save_dictionary(dictionary)
-            print("Dictionary saved.")
+            # print("Dictionary saved.")
 
         elif choice == "5":
             load_dictionary(dictionary)

@@ -1,0 +1,37 @@
+[
+     {
+          "ky_tu_dau": "p",
+          "nhieu_muc_tu": [
+               {
+                    "muc_tu": "play",
+                    "danh_sach_nghia": [
+                         {
+                              "loai_tu": "verb",
+                              "nghia": "to take part in a game or other fun activities",
+                              "vi_du": "children love to play in the playground"
+                         },
+                         {
+                              "loai_tu": "noun",
+                              "nghia": "a written dramatic performance",
+                              "vi_du": "we watched a play by shakespeare last night"
+                         }
+                    ]
+               },
+               {
+                    "muc_tu": "point",
+                    "danh_sach_nghia": [
+                         {
+                              "loai_tu": "verb",
+                              "nghia": "to indicate a location or direction with a finger or object",
+                              "vi_du": "she pointed to the building across the street"
+                         },
+                         {
+                              "loai_tu": "noun",
+                              "nghia": "a specific location or position",
+                              "vi_du": "he marked the point on the map."
+                         }
+                    ]
+               }
+          ]
+     }
+]

@@ -39,6 +39,7 @@ mang = PhuongThuc( [[1, 2, 3],
 
 mang.NhomHang()
 
+# Ma trận với các hàng không giống nhau
 mang = PhuongThuc( [[1, 2, 3],
                     [4, 5, 6],
                     [7, 8, 9]])
