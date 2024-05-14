@@ -4,9 +4,6 @@ class Nghia:
         self.nghia = nghia
         self.vi_du = vi_du
         self.next = None
-        
-    # def __repr__(self):
-    #     return f"({self.loai_tu}): {self.nghia}. Ví dụ: {self.vi_du}"
    
 class MucTu:
     def __init__(self, muc_tu):
@@ -75,12 +72,6 @@ class BST:
     
     def find(self, muc_tu):
         return self._find_recursive(self.root, muc_tu)
-    
-        # if found_muc_tu:
-        #     print("Mục từ tìm thấy:")
-        #     found_muc_tu.xem_muc_tu()
-        # else:
-        #     print("Mục từ không tìm thấy.")
     
     def _find_recursive(self, node, muc_tu):
         if not node:

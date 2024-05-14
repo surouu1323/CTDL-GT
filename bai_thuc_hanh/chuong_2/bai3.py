@@ -23,8 +23,7 @@ class PhuongThuc:
         # Không có hai hàng giống nhau
         return False
     
-# Ma trận có hai hàng giống nhau
- # Ma trận tam giác trên    
+# Ma trận có hai hàng giống nhau 
 mang = PhuongThuc( [[1, 2, 3],
                     [4, 5, 6],
                     [1, 2, 3]])
