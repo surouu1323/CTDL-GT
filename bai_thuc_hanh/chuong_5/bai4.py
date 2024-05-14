@@ -1,19 +1,22 @@
 class Node:
-    def __init__(self, data):
-        self.info = data
-        self.left = None
-        self.right = None
+    def __init__(self, data): # Lớp này đại diện cho một nút trong cây nhị phân.
+        self.info = data # Chứa dữ liệu của nút.
+        self.left = None # Trỏ đến nút con bên trái.
+        self.right = None # Trỏ đến nút con bên phải.
 
-class PhuongThuc:
+class PhuongThuc: # Lớp này đại diện cho cây nhị phân và chứa các phương thức thao tác với cây.
     def __init__(self):
-        self.root = None
+        self.root = None # Gốc của cây, ban đầu được khởi tạo là None.
 
     def SoNutTrungGian(self, node):
-        if node is None:
+        if node is None: # Nếu node là None, tức là cây con này không tồn tại hoặc đã đến lá, phương thức trả về 0.
             return 0
-        elif node.left is None and node.right is None:  # Kiểm tra nút lá
+        # Nếu node không phải là None, nhưng cả hai node.left và node.right đều là None, 
+        # tức là node là một nút lá, phương thức cũng trả về 0 vì nút lá không được tính là nút trung gian.
+        elif node.left is None and node.right is None:  
             return 0
         else:
+            #  Nếu node không phải là nút lá, phương thức tiến hành đệ quy để đếm số nút trung gian của cây con trái và cây con phải.
             left_count = self.SoNutTrungGian(node.left)
             right_count = self.SoNutTrungGian(node.right)
             return left_count + right_count + 1

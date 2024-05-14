@@ -1,19 +1,19 @@
 class Node:
-    def __init__(self, info):
+    def __init__(self, info): # khởi tạo với thông tin info và con trỏ Next trỏ đến None.
         self.Info = info
         self.Next = None
 
 class PhuongThuc:
     def __init__(self):
-        self.Head = None
+        self.Head = None # khởi tạo với Head là None.
 
-    def Them(self, info):
+    def Them(self, info): # Thêm một Node mới vào cuối danh sác
         node = Node(info)
-        if self.Head is None:
-            self.Head = node
+        if self.Head is None: # Nếu danh sách rỗng
+            self.Head = node  # Head sẽ là Node mới
         else:
             current = self.Head
-            while current.Next is not None:
+            while current.Next is not None: # duyệt đến cuối danh sách và thêm Node mới
                 current = current.Next
             current.Next = node
 
@@ -25,12 +25,12 @@ class PhuongThuc:
     
     def _InNguoc_recursion(self,node):
         if node.Next is not None:
-            self._InNguoc_recursion(node.Next)
+            self._InNguoc_recursion(node.Next) # Gọi đệ quy đến cuối danh sách trước khi in thông tin Info của Node.
             print(node.Info, end=" ")
         else:
             print(node.Info, end=" ")
 
-    def InDanhSach(self):
+    def InDanhSach(self): # In tất cả các phần tử trong danh sách theo thứ tự từ đầu đến cuối.
         current = self.Head
         while current is not None:
             print(current.Info, end=" ")

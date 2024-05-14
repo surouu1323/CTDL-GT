@@ -1,26 +1,32 @@
 class Node:
-    def __init__(self, data):
-        self.info = data
-        self.left = None
-        self.right = None
+    def __init__(self, data): # Lớp này đại diện cho một nút trong cây nhị phân.
+        self.info = data # Chứa dữ liệu của nút.
+        self.left = None # Trỏ đến nút con bên trái.
+        self.right = None # Trỏ đến nút con bên phải.
 
-class PhuongThuc:
+class PhuongThuc: # Lớp này đại diện cho cây nhị phân và chứa các phương thức thao tác với cây.
     def __init__(self):
-        self.root = None
+        self.root = None # Gốc của cây, ban đầu được khởi tạo là None.
 
     def Chep(self):
-        
+        # Gọi phương thức đệ quy _Chep() để sao chép cây nhị phân, bắt đầu từ nút gốc (self.root)
         return self._Chep(self.root)
 
     def _Chep(self, node):
+        # Nếu nút hiện tại là None, trả về None (điểm dừng của đệ quy)
         if node is None:
             return None
 
+        # Tạo một nút mới với thông tin của nút hiện tại
         new_node = Node(node.info)
+        # Sao chép cây con bên trái của nút hiện tại và gán cho cây con bên trái của nút mới
         new_node.left = self._Chep(node.left)
+        # Sao chép cây con bên phải của nút hiện tại và gán cho cây con bên phải của nút mới
         new_node.right = self._Chep(node.right)
 
+        # Trả về nút mới đã được sao chép
         return new_node
+
 
 # Tạo một cây nhị phân
 cay = PhuongThuc()

@@ -1,33 +1,33 @@
 class Node:
-    def __init__(self, info):
+    def __init__(self, info):  # khởi tạo với thông tin info và con trỏ Next trỏ đến None.
         self.Info = info
         self.Next = None
 
 class PhuongThuc:
     def __init__(self):
-        self.Head = None
+        self.Head = None # khởi tạo với Head là None.
 
-    def Them(self, info):
+    def Them(self, info): # Thêm một Node mới vào cuối danh sác
         node = Node(info)
-        if self.Head is None:
-            self.Head = node
+        if self.Head is None: # Nếu danh sách rỗng
+            self.Head = node  # Head sẽ là Node mới
         else:
             current = self.Head
-            while current.Next is not None:
+            while current.Next is not None: # duyệt đến cuối danh sách và thêm Node mới
                 current = current.Next
             current.Next = node
 
 
     def InNguoc(self):
-        stack = []
+        stack = [] # Tạo một ngăn xếp để lưu trữ các phần tử.
         current = self.Head
-        while current is not None:
-            stack.append(current.Info)
+        while current is not None: # Duyệt qua danh sách
+            stack.append(current.Info) # thêm các phần tử vào ngăn xếp.
             current = current.Next
         while stack:
-            print(stack.pop(), end=" ")
+            print(stack.pop(), end=" ") # Lấy các phần tử ra khỏi ngăn xếp và in ra theo thứ tự ngược lại.
 
-    def InDanhSach(self):
+    def InDanhSach(self): # In tất cả các phần tử trong danh sách theo thứ tự từ đầu đến cuối.
         current = self.Head
         while current is not None:
             print(current.Info, end=" ")

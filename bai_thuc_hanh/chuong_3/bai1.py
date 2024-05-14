@@ -41,13 +41,17 @@ class PhuongThuc:
                 dau = '-'
             else:
                 dau = '-'
-            if temp.HeSo == 1 or temp.HeSo == -1:
-                so = None
-            else:
-                so = abs(temp.HeSo)
+            so = abs(temp.HeSo)
             
             # ghép các chuỗi thành một đa thức hoàn chỉnh và in ra
-            DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '','' if so is None else so,'x','^' if temp.SoMu else '', temp.SoMu if temp.SoMu else '']
+            if temp.SoMu == 0:
+                DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '', temp.HeSo]
+                
+            elif temp.SoMu == 1:
+                DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '', '' if so is None else so,'x']
+            else:
+                DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '','' if so is None else so,'x^' if temp.SoMu > 0 else '', temp.SoMu if temp.SoMu else '']
+            
             DaThuc_string = ''.join([str(m) for m in DaThuc])
             print(DaThuc_string, end=' ')
             temp = temp.KeTiep
