@@ -11,11 +11,13 @@ class PhuongThuc: # Lớp này đại diện cho cây nhị phân và chứa cá
     def SoNutLa(self, node):
         if node is None: # Nếu node là None, trả về 0 (cây rỗng hoặc đã đến cuối nhánh).
             return 0
+        if node.left is None and node.right is None: # nếu node bên trái và phải của node đó đều không tồn tại => đó là nút lá
+            return 1
         else:
             #  Gọi đệ quy SoNut cho nút con bên trái (node.left) và nút con bên phải (node.right). 
             left_count = self.SoNutLa(node.left)
             right_count = self.SoNutLa(node.right)
-            return left_count + right_count + 1 # Tổng số nút là tổng của nút bên trái, nút bên phải
+            return left_count + right_count # Tổng số lá nút là tổng của nút bên trái, nút bên phải
 
 # Tạo một cây nhị phân
 cay = PhuongThuc()

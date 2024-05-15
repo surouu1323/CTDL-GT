@@ -102,6 +102,7 @@ DaThuc.Them(-2,2)
 DaThuc.Them(3,1)
 DaThuc.Them(-3,1)
 DaThuc.Them(-3,0)
+
 print("Đa thức chưa rút gọn:")
 DaThuc.InDaThuc() # -2x^2 +2x^2 -2x^2 +3x^1 -3x^1 -3
 print("\n")
