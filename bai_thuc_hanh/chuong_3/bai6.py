@@ -82,11 +82,11 @@ class PhuongThuc:
             
             # ghép các chuỗi thành một đa thức hoàn chỉnh và in ra
             if temp.SoMu == 0:
-                DaThuc = [dau if temp != self.head  else '', so]
+                DaThuc = ['' if temp == self.head and temp.HeSo > 0 else dau , so]
             elif temp.SoMu == 1:
-                DaThuc = [dau if temp != self.head  else '', '' if so is None else so,'x']
+                DaThuc = ['' if temp == self.head and temp.HeSo > 0 else dau, '' if so is None else so,'x']
             else:
-                DaThuc = [dau if temp != self.head  else '','' if so is None else so,'x^' if temp.SoMu > 0 else '', temp.SoMu if temp.SoMu else '']
+                DaThuc = ['' if temp == self.head and temp.HeSo > 0 else dau,'' if so is None else so,'x^' if temp.SoMu > 0 else '', temp.SoMu if temp.SoMu else '']
             
             DaThuc_string = ''.join([str(m) for m in DaThuc])
             print(DaThuc_string, end=' ')

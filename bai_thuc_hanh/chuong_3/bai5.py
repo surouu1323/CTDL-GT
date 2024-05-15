@@ -82,11 +82,11 @@ class PhuongThuc:
             
             # ghép các chuỗi thành một đa thức hoàn chỉnh và in ra
             if temp.SoMu == 0:
-                DaThuc = [dau if temp != self.head  else '', so]
+                DaThuc = ['' if temp == self.head and temp.HeSo > 0 else dau , so]
             elif temp.SoMu == 1:
-                DaThuc = [dau if temp != self.head  else '', '' if so is None else so,'x']
+                DaThuc = ['' if temp == self.head and temp.HeSo > 0 else dau, '' if so is None else so,'x']
             else:
-                DaThuc = [dau if temp != self.head  else '','' if so is None else so,'x^' if temp.SoMu > 0 else '', temp.SoMu if temp.SoMu else '']
+                DaThuc = ['' if temp == self.head and temp.HeSo > 0 else dau,'' if so is None else so,'x^' if temp.SoMu > 0 else '', temp.SoMu if temp.SoMu else '']
             
             DaThuc_string = ''.join([str(m) for m in DaThuc])
             print(DaThuc_string, end=' ')
@@ -115,6 +115,7 @@ DaThuc1.Them(2, 3)
 DaThuc1.Them(-1, 2)
 DaThuc1.Them(3, 1)
 DaThuc1.Them(4, 0)
+print("Đa thức 1:")
 DaThuc1.InDaThuc()
 
 # Tạo đa thức 2
@@ -122,10 +123,12 @@ DaThuc2 = PhuongThuc()
 DaThuc2.Them(1, 2)
 DaThuc2.Them(-2, 1)
 DaThuc2.Them(1, 0)
+print("Đa thức 2:")
 DaThuc2.InDaThuc()
 
 # Tính tích của đa thức 1 và đa thức 2
 tich_DaThuc = DaThuc1.Tich(DaThuc2)
 
+print("Tích của 2 đa thức")
 # In đa thức kết quả
 tich_DaThuc.InDaThuc()
