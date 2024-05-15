@@ -1,39 +1,35 @@
-from collections import deque
+class DoThi:
+    def __init__(self):
+        self.ds_ke = {}  # Danh sách kề (adjacency list)
 
-def SoThanhPhan(dt):
-    # Kiểm tra đồ thị rỗng
-    if len(dt) == 0:
-        return 0
-    
-    # Khởi tạo hàng đợi và tập hợp chứa các đỉnh đã duyệt
-    queue = deque()
-    visited = set()
-    count = 0
-    
-    for vertex in dt:
-        if vertex not in visited:
-            count += 1
-            queue.append(vertex)
-            visited.add(vertex)
-            
-            while queue:
-                current_vertex = queue.popleft()
-                
-                # Duyệt qua các đỉnh kề chưa được duyệt
-                for neighbor in dt[current_vertex]:
-                    if neighbor not in visited:
-                        queue.append(neighbor)
-                        visited.add(neighbor)
-    
-    return count
+    def them_canh(self, u, v):
+        if u not in self.ds_ke:
+            self.ds_ke[u] = []
+        if v not in self.ds_ke:
+            self.ds_ke[v] = []
+        self.ds_ke[u].append(v)
+        self.ds_ke[v].append(u)  # Nếu là đồ thị vô hướng
 
-dt = {
-    'A': ['B', 'C'],
-    'B': ['A', 'C'],
-    'C': ['A', 'B'],
-    'D': ['E'],
-    'E': ['D']
-}
+    def DFS(self, v, visited):
+        visited[v] = True
+        for neighbour in self.ds_ke[v]:
+            if not visited[neighbour]:
+                self.DFS(neighbour, visited)
 
-component_count = SoThanhPhan(dt)
-print(component_count)  # Kết quả: 2
+    def SoThanhPhan(self):
+        visited = {v: False for v in self.ds_ke}  # Khởi tạo tất cả các đỉnh đều chưa được thăm
+        count = 0
+        for vertex in self.ds_ke:
+            if not visited[vertex]:
+                self.DFS(vertex, visited)
+                count += 1
+        return count
+
+# Ví dụ sử dụng
+dt = DoThi()
+dt.them_canh(0, 1)
+dt.them_canh(0, 2)
+dt.them_canh(1, 2)
+dt.them_canh(3, 4)
+
+print(dt.SoThanhPhan())  # Kết quả sẽ là 2 vì có 2 thành phần liên thông: {0, 1, 2} và {3, 4}

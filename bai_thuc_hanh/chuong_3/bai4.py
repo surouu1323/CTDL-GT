@@ -1,3 +1,4 @@
+
 class Node:
     def __init__(self, heso, somu):
         self.HeSo = heso
@@ -73,25 +74,26 @@ class PhuongThuc:
     def InDaThuc(self):
         temp = self.head
         while temp:
-            # Nếu hệ số là số dương,  in dấu cộng; 
-            # nếu là số âm, in dấu trừ. 
-            # nếu hệ số là 1 hoặc -1, bỏ qua in hệ số đó
-            if temp.HeSo > 0:
+            if temp.HeSo > 0:  # Nếu hệ số là số dương,  in dấu cộng; 
                 dau = '+'
-            elif temp.HeSo < 0:
+            elif temp.HeSo < 0: # nếu là số âm, in dấu trừ. 
                 dau = '-'
             else:
-                dau = '-'
-            so = abs(temp.HeSo)
+                dau = ' ' # nếu hệ số là 0, bỏ qua in dấu
+
+            if (temp.HeSo == -1 or temp.HeSo == 1) and temp.SoMu > 0 : # nếu hệ số là 1 hoặc -1, bỏ qua in hệ số đó
+                so = ''
+            else:
+                so = abs(temp.HeSo)
+            
             
             # ghép các chuỗi thành một đa thức hoàn chỉnh và in ra
             if temp.SoMu == 0:
-                DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '', temp.HeSo]
-                
+                DaThuc = ['' if temp == self.head and temp.HeSo > 0 else dau , so]
             elif temp.SoMu == 1:
-                DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '', '' if so is None else so,'x']
+                DaThuc = ['' if temp == self.head and temp.HeSo > 0 else dau, '' if so is None else so,'x']
             else:
-                DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '','' if so is None else so,'x^' if temp.SoMu > 0 else '', temp.SoMu if temp.SoMu else '']
+                DaThuc = ['' if temp == self.head and temp.HeSo > 0 else dau,'' if so is None else so,'x^' if temp.SoMu > 0 else '', temp.SoMu if temp.SoMu else '']
             
             DaThuc_string = ''.join([str(m) for m in DaThuc])
             print(DaThuc_string, end=' ')
@@ -104,10 +106,10 @@ DaThuc.Them(2, 3)
 DaThuc.Them(-1, 2)
 DaThuc.Them(3, 1)
 DaThuc.Them(4, 0)
-
+print("Đa thức :")
 DaThuc.InDaThuc()  # Kết quả: 2x^3 - 1x^2 + 3x^1 + 4x^0
 
 # Đổi ngược dấu đại số của mỗi số hạng trong đa thức
 DaThuc.DoiDau()
-
+print("Đa thức đổi dấu:")
 DaThuc.InDaThuc()  # Kết quả: -2x^3 + 1x^2 - 3x^1 - 4x^0
