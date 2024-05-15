@@ -55,8 +55,15 @@ class PhuongThuc:
                 # Nếu goc == self.head, tức là goc là nút đầu tiên của danh sách, 
                 # nó sẽ chỉnh sửa self.head để trỏ tới nút kế tiếp của goc (goc.KeTiep), và sau đó di chuyển tham chiếu pre_goc tới self.head.
                 elif goc == self.head:
-                    self.head = goc.KeTiep
-                    pre_goc = self.head   
+                    goc_cu = goc # lưu lại giá trị gốc cũ
+                    self.head = goc.KeTiep # thay đổi head của node bằng giá trị tiếp theo
+                    pre_goc = self.head   # cho pre_goc về head của node
+                    temp = self.head # vì ta đã bỏ đi gốc cũ nên cần phải thay đổi giá trị kế tiếp của node cuối cùng 
+                    while True:
+                        temp = temp.KeTiep # trỏ đến node kế tiếp
+                        if temp.KeTiep == goc_cu: # nếu node kế tiếp chỉ đến giá trị của goc_cu (là gốc mà ta đã xóa)
+                            break
+                    temp.KeTiep == self.head # thay đổi giá trị của node kế tiếp về lại giá trị head mới  
                 
                 # Trong trường hợp còn lại, 
                 # nó chỉnh sửa tham chiếu của nút trước đó (pre_goc) để trỏ tới nút kế tiếp của goc (goc.KeTiep), 
