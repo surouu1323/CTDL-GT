@@ -107,17 +107,19 @@ class PhuongThuc:
                 break
                 
         # Sau khi duyệt qua tất cả các hạng tử của cả hai đa thức, các hạng tử còn lại của p1 và p2 sẽ được thêm vào result.
-        while True:
-            result.Them(p1.HeSo, p1.SoMu)
-            p1 = p1.KeTiep
-            if p1 == self.head:
-                break
+        if p1 != self.head:
+            while True:
+                result.Them(p1.HeSo, p1.SoMu)
+                p1 = p1.KeTiep
+                if p1 == self.head:
+                    break
 
-        while True:
-            result.Them(p2.HeSo, p2.SoMu)
-            p2 = p2.KeTiep
-            if p2 == DaThuc2.head:
-                break
+        if p2 != DaThuc2.head:
+            while True:
+                result.Them(p2.HeSo, p2.SoMu)
+                p2 = p2.KeTiep
+                if p2 == DaThuc2.head:
+                    break
 
         result.RutGon() # Cuối cùng dùng phương thức RutGon được gọi để rút gọn đa thức kết quả và kết quả được trả về.
         return result
