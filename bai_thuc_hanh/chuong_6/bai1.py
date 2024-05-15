@@ -17,7 +17,7 @@ a = PhuongThuc([1, 5, 3, 7, 5, 9, 7])
 b = a.Duynhat()
 
 # In đối tượng a (sẽ hiển thị thông tin về đối tượng, không phải nội dung mảng)
-print(a)
+print(a.arr)
 
 # In danh sách các số duy nhất đã được sắp xếp
 print(b)
