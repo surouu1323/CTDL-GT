@@ -174,7 +174,7 @@ class Hash:
 import json
 
 def save_dictionary(hash):
-    file_name = "E:/thanhdzai/stuff/tai lieu/dai hoc/cu/cau truc du lieu va giai thuat/bai tap/CTDL-GT/bai_thuc_hanh/bai_tap_lop/N21DCDT083_bam.json"  # Tên của file JSON để lưu từ điển
+    file_name = "N21DCDT083_bam.json"  # Tên của file JSON để lưu từ điển
     hash_table = hash.table  # Lấy bảng băm từ hash.table
     dictionary_data = []  # Danh sách để lưu dữ liệu từ điển
     
@@ -212,7 +212,7 @@ def save_dictionary(hash):
         json.dump(dictionary_data, f, indent=5)  # Ghi dữ liệu từ điển vào file JSON (indent=5)
 
 def load_dictionary(hash):
-    file_name = "E://thanhdzai//stuff//tai lieu//dai hoc//cu//cau truc du lieu va giai thuat//bai tap//CTDL-GT//bai_thuc_hanh//bai_tap_lop//N21DCDT083_bam.json"  # Tên của file JSON để lưu từ điển
+    file_name = "N21DCDT083_bam.json"  # Tên của file JSON để lưu từ điển
     with open(file_name, 'r') as f:
         dictionary_data = json.load(f)  # Đọc dữ liệu từ file JSON
         
@@ -226,7 +226,6 @@ def load_dictionary(hash):
                 for phan_nghia_data in danh_sach_nghia:
                     # Nhập từng nghĩa vào bảng băm
                     hash.NhapTu(muc_tu, phan_nghia_data["loai_tu"], phan_nghia_data["nghia"], phan_nghia_data["vi_du"])
-
 
 
 def main():

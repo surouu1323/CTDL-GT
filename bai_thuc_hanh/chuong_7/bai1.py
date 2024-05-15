@@ -33,7 +33,7 @@ dt.them_canh(0, 1)
 dt.them_canh(1, 2)
 dt.them_canh(3, 4)
 
-print(dt.lien_thong())  # Kết quả sẽ là False nếu không thêm cạnh (3, 4)
+print(dt.lien_thong())  # Kết quả sẽ là False nếu không thêm cạnh (2, 3)
 
-dt.them_canh(2, 3)  # Nếu thêm cạnh này thì đồ thị sẽ kh liên thông
+dt.them_canh(2, 3)  # Nếu thêm cạnh này thì đồ thị sẽ liên thông
 print(dt.lien_thong())
