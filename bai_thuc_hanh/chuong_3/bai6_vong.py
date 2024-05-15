@@ -1,40 +1,44 @@
 class Node:
     def __init__(self,HeSo,SoMu):
-        self.HeSo = HeSo # Mỗi nút chứa hai thuộc tính: HeSo (hệ số) và SoMu (số mũ),
+        self.HeSo = HeSo
         self.SoMu = SoMu
-        self.KeTiep = None #  một tham chiếu tới nút tiếp theo trong danh sách (KeTiep).
+        self.KeTiep = None
         
 class PhuongThuc:
     def __init__(self):
         self.head = None
     
     def Them(self,new_HeSo,new_SoMu): # thêm một hạng tử mới vào đa thức theo thứ tự giảm dần của số mũ.
-        new_node = Node(new_HeSo,new_SoMu)
-        if self.head is None: # Nếu đa thức rỗng 
-            self.head = new_node # nó sẽ trở thành nút đầu tiên của đa thức
-            
-        else: # Nếu không, nó sẽ duyệt qua các nút trong danh sách đến khi tìm được vị trí thích hợp cho nút mới dựa trên số mũ.
-            last = self.head 
-            while last.KeTiep: # kiểm tra node kế tiếp nếu node đó không = none
-                if last.KeTiep.SoMu < new_node.SoMu:  #nếu node kế tiếp có số mũ < số mũ node cần được thêm
-                    temp = last.KeTiep # lưu giá trị kế tiếp của last vào temp
-                    last.KeTiep = new_node # thay đổi giá trị kế tiếp của last thành node mới
-                    new_node.KeTiep = temp # thêm giá trị kế tiếp cho node mới từ temp
-                    return
-                last = last.KeTiep # duyệt qua từng phần tử của list
-            if last.SoMu < new_node.SoMu: # cũng giống như trên nhưng dành cho node đầu tiên 
-                temp = last
-                self.head = new_node
-                new_node.KeTiep = temp
-            else:
-                last.KeTiep = new_node
+            new_node = Node(new_HeSo,new_SoMu)
+            if self.head is None: # Nếu đa thức rỗng 
+                self.head = new_node # nó sẽ trở thành nút đầu tiên của đa thức
+                new_node.next = self.head
+                
+            else: # Nếu không, nó sẽ duyệt qua các nút trong danh sách đến khi tìm được vị trí thích hợp cho nút mới dựa trên số mũ.
+                last = self.head 
+                while last.KeTiep and (last.KeTiep != self.head): # kiểm tra node kế tiếp nếu node đó không = none
+                    if last.KeTiep.SoMu < new_node.SoMu:  #nếu node kế tiếp có số mũ < số mũ node cần được thêm
+                        temp = last.KeTiep # lưu giá trị kế tiếp của last vào temp
+                        last.KeTiep = new_node # thay đổi giá trị kế tiếp của last thành node mới
+                        new_node.KeTiep = temp # thêm giá trị kế tiếp cho node mới từ temp
+                        return
+                    last = last.KeTiep # duyệt qua từng phần tử của list
+                    
+                if last.SoMu < new_node.SoMu: # cũng giống như trên nhưng dành cho node đầu tiên 
+                    temp = last
+                    self.head = new_node
+                    temp.KeTiep = self.head
+                    new_node.KeTiep = temp
+                else:
+                    new_node.KeTiep = self.head
+                    last.KeTiep = new_node
         
     def RutGon(self):
         goc = self.head
         pre_goc = goc # nút pre_goc là nút goc trước đó 
-        while goc:
+        while True:
             search = goc.KeTiep
-            while search: # bắt đầu bằng cách duyệt qua từng nút trong danh sách
+            while search and search != self.head: # bắt đầu bằng cách duyệt qua từng nút trong danh sách
                 if search.SoMu == goc.SoMu: # Nếu tìm thấy một nút với số mũ giống nhau
                     goc.HeSo += search.HeSo # cộng hệ số của nút đó vào hệ số của nút gốc
                     goc.KeTiep = search.KeTiep #  loại bỏ nút đó ra khỏi danh sách
@@ -62,11 +66,12 @@ class PhuongThuc:
             # Nếu hệ số của nút gốc không phải là 0, nó sẽ di chuyển goc tới nút kế tiếp của nó (goc = goc.KeTiep) 
             # để xử lý các nút tiếp theo trong danh sách.
             goc = goc.KeTiep
+            if goc == self.head:
+                break 
 
-        
     def InDaThuc(self):
         temp = self.head
-        while temp:
+        while True:
             if temp.HeSo > 0:  # Nếu hệ số là số dương,  in dấu cộng; 
                 dau = '+'
             elif temp.HeSo < 0: # nếu là số âm, in dấu trừ. 
@@ -79,8 +84,7 @@ class PhuongThuc:
             else:
                 so = abs(temp.HeSo)
             
-            
-            # ghép các chuỗi thành một đa thức hoàn chỉnh và in ra
+             # ghép các chuỗi thành một đa thức hoàn chỉnh và in ra
             if temp.SoMu == 0:
                 DaThuc = ['' if temp == self.head and temp.HeSo > 0 else dau , so]
             elif temp.SoMu == 1:
@@ -91,20 +95,36 @@ class PhuongThuc:
             DaThuc_string = ''.join([str(m) for m in DaThuc])
             print(DaThuc_string, end=' ')
             temp = temp.KeTiep
+            
+            if temp == self.head:
+                break
         print()
 
+    def Chep(self):
+        copy_dathuc = PhuongThuc()
+        current = self.head
+        while True: # mỗi vòng lặp, thêm một nút mới vào copy_dathuc với cùng hệ số và số mũ như nút hiện tại trong đa thức gốc.
+            copy_dathuc.Them(current.HeSo, current.SoMu)
+            current = current.KeTiep
+            if current == self.head:
+                break
+        return copy_dathuc
 
-DaThuc = PhuongThuc()
-DaThuc.Them(-2,2)
-DaThuc.Them(2,2)
-DaThuc.Them(-2,2)
-DaThuc.Them(3,1)
-DaThuc.Them(-3,1)
-DaThuc.Them(-3,0)
 
-print("Đa thức chưa rút gọn:")
-DaThuc.InDaThuc() # -2x^2 +2x^2 -2x^2 +3x^1 -3x^1 -3
-print("\n")
-DaThuc.RutGon()
-print("Đa thức rút gọn:")
-DaThuc.InDaThuc() # -2x^2 -3
+# Tạo đa thức gốc
+dathuc = PhuongThuc()
+dathuc.Them(2, 3)
+dathuc.Them(-1, 2)
+dathuc.Them(3, 1)
+dathuc.Them(4, 0)
+
+# Sao chép đa thức
+copy_dathuc = dathuc.Chep()
+
+# In đa thức gốc
+print("Đa thức gốc:")
+dathuc.InDaThuc()
+
+# In đa thức sao chép
+print("Đa thức sao chép:")
+copy_dathuc.InDaThuc()

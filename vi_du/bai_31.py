@@ -12,26 +12,31 @@ class PhuongThuc:
         new_node = Node(new_HeSo,new_SoMu)
         if self.head is None: # Nếu đa thức rỗng 
             self.head = new_node # nó sẽ trở thành nút đầu tiên của đa thức
+            new_node.next = self.head
             
         else: # Nếu không, nó sẽ duyệt qua các nút trong danh sách đến khi tìm được vị trí thích hợp cho nút mới dựa trên số mũ.
             last = self.head 
-            while last.KeTiep: # kiểm tra node kế tiếp nếu node đó không = none
+            while last.KeTiep and (last.KeTiep != self.head): # kiểm tra node kế tiếp nếu node đó không = none
                 if last.KeTiep.SoMu < new_node.SoMu:  #nếu node kế tiếp có số mũ < số mũ node cần được thêm
                     temp = last.KeTiep # lưu giá trị kế tiếp của last vào temp
                     last.KeTiep = new_node # thay đổi giá trị kế tiếp của last thành node mới
                     new_node.KeTiep = temp # thêm giá trị kế tiếp cho node mới từ temp
                     return
                 last = last.KeTiep # duyệt qua từng phần tử của list
+                
             if last.SoMu < new_node.SoMu: # cũng giống như trên nhưng dành cho node đầu tiên 
                 temp = last
                 self.head = new_node
+                temp.KeTiep = self.head
                 new_node.KeTiep = temp
             else:
+                new_node.KeTiep = self.head
                 last.KeTiep = new_node
+                
         
     def InDaThuc(self):
         temp = self.head
-        while temp:
+        while True:
             # Nếu hệ số là số dương,  in dấu cộng; 
             # nếu là số âm, in dấu trừ. 
             # nếu hệ số là 1 hoặc -1, bỏ qua in hệ số đó
@@ -55,6 +60,8 @@ class PhuongThuc:
             DaThuc_string = ''.join([str(m) for m in DaThuc])
             print(DaThuc_string, end=' ')
             temp = temp.KeTiep
+            if temp == self.head:
+                break
         print()
             
 DaThuc = PhuongThuc()

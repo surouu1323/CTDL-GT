@@ -76,11 +76,11 @@ class PhuongThuc:
                     goc.KeTiep = search.KeTiep #  loại bỏ nút đó ra khỏi danh sách
                 search = search.KeTiep
                 
-            # Sau khi duyệt qua tất cả các nút
+             # Sau khi duyệt qua tất cả các nút
             if goc.HeSo == 0: # kiểm tra xem hệ số của nút goc có bằng 0 không. Nếu có loại bỏ nút đó khỏi danh sách
                 # Nếu goc.KeTiep is None,tức là goc là nút cuối cùng của danh sách, 
                 # nó sẽ chỉnh sửa tham chiếu từ nút trước đó (pre_goc) để trỏ tới None, loại bỏ nút goc ra khỏi danh sách.
-                if goc.KeTiep is None: 
+                if goc.KeTiep == self.head: 
                     pre_goc.KeTiep = None 
                     
                 # Nếu goc == self.head, tức là goc là nút đầu tiên của danh sách, 
@@ -94,11 +94,10 @@ class PhuongThuc:
                 # loại bỏ nút gốc ra khỏi danh sách.
                 else:
                     pre_goc.KeTiep = goc.KeTiep
-                goc = pre_goc
-            else:
-                # Nếu hệ số của nút gốc không phải là 0, nó sẽ di chuyển goc tới nút kế tiếp của nó (goc = goc.KeTiep) 
-                # để xử lý các nút tiếp theo trong danh sách.
-                goc = goc.KeTiep
+                    
+            # Nếu hệ số của nút gốc không phải là 0, nó sẽ di chuyển goc tới nút kế tiếp của nó (goc = goc.KeTiep) 
+            # để xử lý các nút tiếp theo trong danh sách.
+            goc = goc.KeTiep
 
     def InDaThuc(self):
         temp = self.head
