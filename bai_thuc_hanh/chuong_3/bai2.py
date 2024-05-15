@@ -29,7 +29,7 @@ class PhuongThuc:
             else:
                 last.KeTiep = new_node
         
-    def RutGon(self): # thêm một hạng tử mới vào đa thức theo thứ tự giảm dần của số mũ.
+    def RutGon(self):
         goc = self.head
         pre_goc = goc # nút pre_goc là nút goc trước đó 
         while goc:
@@ -68,32 +68,33 @@ class PhuongThuc:
     def InDaThuc(self):
         temp = self.head
         while temp:
-            # Nếu hệ số là số dương,  in dấu cộng; 
-            # nếu là số âm, in dấu trừ. 
-            # nếu hệ số là 1 hoặc -1, bỏ qua in hệ số đó
-            if temp.HeSo > 0:
+            if temp.HeSo > 0:  # Nếu hệ số là số dương,  in dấu cộng; 
                 dau = '+'
-            elif temp.HeSo < 0:
+            elif temp.HeSo < 0: # nếu là số âm, in dấu trừ. 
                 dau = '-'
             else:
-                dau = '-'
-            so = abs(temp.HeSo)
+                dau = ' ' # nếu hệ số là 0, bỏ qua in dấu
+
+            if (temp.HeSo == -1 or temp.HeSo == 1) and temp.SoMu > 0 : # nếu hệ số là 1 hoặc -1, bỏ qua in hệ số đó
+                so = ''
+            else:
+                so = abs(temp.HeSo)
+            
             
             # ghép các chuỗi thành một đa thức hoàn chỉnh và in ra
             if temp.SoMu == 0:
-                DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '', temp.HeSo]
-                
+                DaThuc = [dau if temp != self.head  else '', so]
             elif temp.SoMu == 1:
-                DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '', '' if so is None else so,'x']
+                DaThuc = [dau if temp != self.head  else '', '' if so is None else so,'x']
             else:
-                DaThuc = [dau if temp != self.head or temp.HeSo < 0 else '','' if so is None else so,'x^' if temp.SoMu > 0 else '', temp.SoMu if temp.SoMu else '']
+                DaThuc = [dau if temp != self.head  else '','' if so is None else so,'x^' if temp.SoMu > 0 else '', temp.SoMu if temp.SoMu else '']
             
             DaThuc_string = ''.join([str(m) for m in DaThuc])
             print(DaThuc_string, end=' ')
             temp = temp.KeTiep
         print()
 
-        
+
 DaThuc = PhuongThuc()
 DaThuc.Them(-2,2)
 DaThuc.Them(2,2)
@@ -101,7 +102,7 @@ DaThuc.Them(-2,2)
 DaThuc.Them(3,1)
 DaThuc.Them(-3,1)
 DaThuc.Them(-3,0)
-DaThuc.InDaThuc() # -2x^2 +2x^2 -2x^2 +3x^1 -3x^1 -3x 
+DaThuc.InDaThuc() # -2x^2 +2x^2 -2x^2 +3x^1 -3x^1 -3
 print("\n")
 DaThuc.RutGon()
-DaThuc.InDaThuc() # -2x^2 -3x 
+DaThuc.InDaThuc() # -2x^2 -3
