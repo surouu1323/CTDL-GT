@@ -39,11 +39,13 @@ class PhuongThuc:
         pre_goc = goc # nút pre_goc là nút goc trước đó 
         while True:
             search = goc.KeTiep
-            while search != goc: # bắt đầu bằng cách duyệt qua từng nút trong danh sách
+            while True: # bắt đầu bằng cách duyệt qua từng nút trong danh sách
                 if search.SoMu == goc.SoMu: # Nếu tìm thấy một nút với số mũ giống nhau
                     goc.HeSo += search.HeSo # cộng hệ số của nút đó vào hệ số của nút gốc
                     goc.KeTiep = search.KeTiep #  loại bỏ nút đó ra khỏi danh sách
                 search = search.KeTiep
+                if search == goc:
+                    break
                 
             # Sau khi duyệt qua tất cả các nút
             if goc.HeSo == 0: # kiểm tra xem hệ số của nút goc có bằng 0 không. Nếu có loại bỏ nút đó khỏi danh sách
@@ -55,14 +57,23 @@ class PhuongThuc:
                 # Nếu goc == self.head, tức là goc là nút đầu tiên của danh sách, 
                 # nó sẽ chỉnh sửa self.head để trỏ tới nút kế tiếp của goc (goc.KeTiep), và sau đó di chuyển tham chiếu pre_goc tới self.head.
                 elif goc == self.head:
+                    goc_cu = goc
                     self.head = goc.KeTiep
                     pre_goc = self.head   
+                    temp = self.head
+                    while True:
+                        temp = temp.KeTiep
+                        if temp.KeTiep == goc_cu:
+                            break
+                    temp.KeTiep == self.head
                 
                 # Trong trường hợp còn lại, 
                 # nó chỉnh sửa tham chiếu của nút trước đó (pre_goc) để trỏ tới nút kế tiếp của goc (goc.KeTiep), 
                 # loại bỏ nút gốc ra khỏi danh sách.
                 else:
                     pre_goc.KeTiep = goc.KeTiep
+                
+                temp.KeTiep = self.head
                     
             # Nếu hệ số của nút gốc không phải là 0, nó sẽ di chuyển goc tới nút kế tiếp của nó (goc = goc.KeTiep) 
             # để xử lý các nút tiếp theo trong danh sách.
@@ -146,25 +157,43 @@ class PhuongThuc:
 
 
 # Tạo đa thức 1
-DaThuc1 = PhuongThuc()
-DaThuc1.Them(2, 3)
-DaThuc1.Them(-1, 2)
-DaThuc1.Them(3, 1)
-DaThuc1.Them(4, 0)
-DaThuc1.RutGon()
-print("Đa thức 1:")
-DaThuc1.InDaThuc()  # Kết quả: 2x^3 - x^2 + 3x + 4
+# DaThuc1 = PhuongThuc()
+# DaThuc1.Them(2, 3)
+# DaThuc1.Them(-1, 2)
+# DaThuc1.Them(3, 1)
+# DaThuc1.Them(4, 0)
+# DaThuc1.RutGon()
+# print("Đa thức 1:")
+# DaThuc1.InDaThuc()  # Kết quả: 2x^3 - x^2 + 3x + 4
+
+# # Tạo đa thức 2
+# DaThuc2 = PhuongThuc()
+# DaThuc2.Them(1, 2)
+# DaThuc2.Them(-2, 1)
+# DaThuc2.Them(1, 0)
+# DaThuc2.RutGon()
+# print("Đa thức 2:")
+# DaThuc2.InDaThuc()  # Kết quả: x^2 - 2x + 1
+
+
+dathuc1 = PhuongThuc()
+dathuc1.Them(3, 3)
+dathuc1.Them(-3, 3)
+dathuc1.Them(-2, 2)
+dathuc1.Them(4, 1)
+dathuc1.Them(5, 0)
+dathuc1.RutGon()
+dathuc1.InDaThuc()  
 
 # Tạo đa thức 2
-DaThuc2 = PhuongThuc()
-DaThuc2.Them(1, 2)
-DaThuc2.Them(-2, 1)
-DaThuc2.Them(1, 0)
-DaThuc2.RutGon()
-print("Đa thức 2:")
-DaThuc2.InDaThuc()  # Kết quả: x^2 - 2x + 1
+dathuc2 = PhuongThuc()
+dathuc2.Them(2, 2)
+dathuc2.Them(-3, 1)
+dathuc2.Them(2, 0)
+dathuc2.RutGon()
+dathuc2.InDaThuc()  
 
 # Cộng hai đa thức
-DaThuc_ketqua = DaThuc1.Cong(DaThuc2)
+DaThuc_ketqua = dathuc1.Cong(dathuc2)
 print("Đa thức 1 + đa thức 2 =")
 DaThuc_ketqua.InDaThuc()  # Kết quả: 2x^3 +1x +5 
