@@ -212,7 +212,7 @@ def save_dictionary(hash):
         json.dump(dictionary_data, f, indent=5)  # Ghi dữ liệu từ điển vào file JSON (indent=5)
 
 def load_dictionary(hash):
-    file_name = "E:/thanhdzai/stuff/tai lieu/dai hoc/cu/cau truc du lieu va giai thuat/bai tap/CTDL-GT/bai_thuc_hanh/bai_tap_lop/N21DCDT083_bam.json"
+    file_name = "E://thanhdzai//stuff//tai lieu//dai hoc//cu//cau truc du lieu va giai thuat//bai tap//CTDL-GT//bai_thuc_hanh//bai_tap_lop//N21DCDT083_bam.json"  # Tên của file JSON để lưu từ điển
     with open(file_name, 'r') as f:
         dictionary_data = json.load(f)  # Đọc dữ liệu từ file JSON
         

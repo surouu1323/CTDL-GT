@@ -6,7 +6,7 @@ class BaiHat:
         self.ca_si = ca_si
     
     def __repr__(self):
-        return f"{self.ten_bai_hat} - {self.nhac_si} (Ca Sĩ: {self.ca_si}))"
+        return f"{self.ten_bai_hat} - {self.nhac_si} (Ca Sĩ: {self.ca_si})"
     
 class Album:
     def __init__(self, ten_album):
