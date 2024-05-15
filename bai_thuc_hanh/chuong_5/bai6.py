@@ -8,33 +8,33 @@ class PhuongThuc: # Lớp này đại diện cho cây nhị phân và chứa cá
     def __init__(self):
         self.root = None # Gốc của cây, ban đầu được khởi tạo là None.
 
-def KiemTraAVL(self, node):
-    # Gọi phương thức _KiemTraAVL() và kiểm tra xem kết quả khác -1 hay không
-    return self._KiemTraAVL(node) != -1
+    def KiemTraAVL(self, node):
+        # Gọi phương thức _KiemTraAVL() và kiểm tra xem kết quả khác -1 hay không
+        return self._KiemTraAVL(node) != -1
 
-def _KiemTraAVL(self, node):
-    # Nếu nút hiện tại là None thì trả về 0 (chiều cao của cây con là 0)
-    if node is None:
-        return 0
+    def _KiemTraAVL(self, node):
+        # Nếu nút hiện tại là None thì trả về 0 (chiều cao của cây con là 0)
+        if node is None:
+            return 0
 
-    # Gọi đệ quy để kiểm tra chiều cao của cây con bên trái
-    left_height = self._KiemTraAVL(node.left)
-    # Nếu chiều cao của cây con bên trái là -1 thì trả về -1 (cây không cân bằng)
-    if left_height == -1:
-        return -1
+        # Gọi đệ quy để kiểm tra chiều cao của cây con bên trái
+        left_height = self._KiemTraAVL(node.left)
+        # Nếu chiều cao của cây con bên trái là -1 thì trả về -1 (cây không cân bằng)
+        if left_height == -1:
+            return -1
 
-    # Gọi đệ quy để kiểm tra chiều cao của cây con bên phải
-    right_height = self._KiemTraAVL(node.right)
-    # Nếu chiều cao của cây con bên phải là -1 thì trả về -1 (cây không cân bằng)
-    if right_height == -1:
-        return -1
+        # Gọi đệ quy để kiểm tra chiều cao của cây con bên phải
+        right_height = self._KiemTraAVL(node.right)
+        # Nếu chiều cao của cây con bên phải là -1 thì trả về -1 (cây không cân bằng)
+        if right_height == -1:
+            return -1
 
-    # Nếu sự chênh lệch giữa chiều cao của cây con bên trái và bên phải lớn hơn 1 thì trả về -1 (cây không cân bằng)
-    if abs(left_height - right_height) > 1:
-        return -1
+        # Nếu sự chênh lệch giữa chiều cao của cây con bên trái và bên phải lớn hơn 1 thì trả về -1 (cây không cân bằng)
+        if abs(left_height - right_height) > 1:
+            return -1
 
-    # Trả về chiều cao lớn nhất của cây con và cộng thêm 1 (tính cả nút hiện tại)
-    return max(left_height, right_height) + 1
+        # Trả về chiều cao lớn nhất của cây con và cộng thêm 1 (tính cả nút hiện tại)
+        return max(left_height, right_height) + 1
 
 
 # Tạo một cây nhị phân
